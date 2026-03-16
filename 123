@@ -1,0 +1,1411 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Оргструктура Групи Компаній</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0c10;
+    --surface: #12151c;
+    --border: #1e2330;
+    --accent1: #4f8ef7;
+    --accent2: #f7a24f;
+    --accent3: #4ff7a2;
+    --text: #e8eaf0;
+    --muted: #6b7280;
+    --accent4: #c084fc;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    overflow-x: auto;
+    padding: 40px 20px 60px;
+  }
+
+  /* Background grid */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(79,142,247,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(79,142,247,0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page { position: relative; z-index: 1; max-width: 1300px; margin: 0 auto; }
+
+  h1 {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: center;
+    margin-bottom: 6px;
+  }
+
+  .subtitle {
+    text-align: center;
+    font-size: 28px;
+    font-family: 'Unbounded', sans-serif;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 50px;
+    letter-spacing: -0.02em;
+  }
+
+  /* ── OWNER ── */
+  .owner-row {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0;
+  }
+
+  .owner-card {
+    background: linear-gradient(135deg, #1a2240 0%, #1e2a4a 100%);
+    border: 1px solid var(--accent1);
+    border-radius: 16px;
+    padding: 20px 48px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 0 40px rgba(79,142,247,0.15);
+  }
+
+  .owner-card::after {
+    content: '';
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 30px;
+    background: linear-gradient(to bottom, var(--accent1), transparent);
+  }
+
+  .owner-label {
+    font-size: 10px;
+    font-family: 'Unbounded', sans-serif;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent1);
+    margin-bottom: 6px;
+  }
+
+  .owner-name {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+
+  .owner-role {
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  /* ── CONNECTOR BAR ── */
+  .connector-bar {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    height: 30px;
+    position: relative;
+  }
+
+  .connector-bar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 100%;
+    background: var(--border);
+  }
+
+  /* ── COMPANIES ROW ── */
+  .companies-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    position: relative;
+  }
+
+  /* horizontal line connecting companies */
+  .companies-row::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: calc(12.5% + 9px);
+    right: calc(12.5% + 9px);
+    height: 2px;
+    background: var(--border);
+  }
+
+  .company-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  /* vertical connector from top line to company card */
+  .company-column::before {
+    content: '';
+    width: 2px;
+    height: 20px;
+    background: var(--border);
+    flex-shrink: 0;
+  }
+
+  /* ── COMPANY CARD ── */
+  .company-card {
+    width: 100%;
+    border-radius: 14px;
+    padding: 18px 20px;
+    text-align: center;
+    position: relative;
+  }
+
+  .company-card.c1 {
+    background: linear-gradient(135deg, #1a2535, #1e2d40);
+    border: 1px solid var(--accent1);
+    box-shadow: 0 0 30px rgba(79,142,247,0.1);
+  }
+  .company-card.c2 {
+    background: linear-gradient(135deg, #2a1e15, #352416);
+    border: 1px solid var(--accent2);
+    box-shadow: 0 0 30px rgba(247,162,79,0.1);
+  }
+  .company-card.c3 {
+    background: linear-gradient(135deg, #152a1e, #163522);
+    border: 1px solid var(--accent3);
+    box-shadow: 0 0 30px rgba(79,247,162,0.1);
+  }
+  .company-card.c4 {
+    background: linear-gradient(135deg, #221535, #2a1a40);
+    border: 1px solid var(--accent4);
+    box-shadow: 0 0 30px rgba(192,132,252,0.1);
+  }
+  .c4 .company-tag { color: var(--accent4); }
+  .c4 .director-badge { background: rgba(192,132,252,0.15); color: var(--accent4); border: 1px solid rgba(192,132,252,0.3); }
+  .c4-line { background: linear-gradient(to bottom, var(--accent4), var(--border)); }
+  .c4-col .dept:hover { border-color: rgba(192,132,252,0.4); }
+
+  .company-tag {
+    font-size: 9px;
+    font-family: 'Unbounded', sans-serif;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    opacity: 0.7;
+  }
+  .c1 .company-tag { color: var(--accent1); }
+  .c2 .company-tag { color: var(--accent2); }
+  .c3 .company-tag { color: var(--accent3); }
+
+  .company-name {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+
+  .company-desc {
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+
+  .director-badge {
+    display: inline-block;
+    font-size: 10px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: 500;
+  }
+  .c1 .director-badge { background: rgba(79,142,247,0.15); color: var(--accent1); border: 1px solid rgba(79,142,247,0.3); }
+  .c2 .director-badge { background: rgba(247,162,79,0.15); color: var(--accent2); border: 1px solid rgba(247,162,79,0.3); }
+  .c3 .director-badge { background: rgba(79,247,162,0.15); color: var(--accent3); border: 1px solid rgba(79,247,162,0.3); }
+
+  /* connector from company to depts */
+  .company-column .vert-line {
+    width: 2px;
+    height: 24px;
+    flex-shrink: 0;
+  }
+  .c1-line { background: linear-gradient(to bottom, var(--accent1), var(--border)); }
+  .c2-line { background: linear-gradient(to bottom, var(--accent2), var(--border)); }
+  .c3-line { background: linear-gradient(to bottom, var(--accent3), var(--border)); }
+
+  /* ── DEPARTMENTS ── */
+  .depts {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  /* Accordion dept header */
+  .dept {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+
+  .dept-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.15s;
+  }
+
+  .dept-header:hover { background: rgba(255,255,255,0.03); }
+
+  .dept-icon { font-size: 16px; flex-shrink: 0; width: 28px; text-align: center; }
+
+  .dept-info { flex: 1; min-width: 0; }
+
+  .dept-name {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  .dept-resp {
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 1px;
+  }
+
+  .dept-arrow {
+    font-size: 10px;
+    color: var(--muted);
+    transition: transform 0.25s;
+    flex-shrink: 0;
+  }
+
+  .dept.open .dept-arrow { transform: rotate(180deg); }
+  .shared-card.open .dept-arrow { transform: rotate(180deg); }
+
+  /* Accordion body */
+  .dept-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .dept.open .dept-body { max-height: 600px; }
+  .shared-card.open .dept-body { max-height: 600px; }
+
+  .dept-member {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 14px 7px 28px;
+    border-top: 1px solid var(--border);
+    font-size: 11px;
+  }
+
+  .dept-member-icon { font-size: 13px; width: 20px; text-align: center; flex-shrink: 0; }
+
+  .dept-member-name { color: var(--text); font-weight: 500; }
+  .dept-member-role { color: var(--muted); font-size: 10px; margin-top: 1px; }
+
+  /* hover colors per company */
+  .c1-col .dept:hover { border-color: rgba(79,142,247,0.4); }
+  .c2-col .dept:hover { border-color: rgba(247,162,79,0.4); }
+  .c3-col .dept:hover { border-color: rgba(79,247,162,0.4); }
+  .c4-col .dept:hover { border-color: rgba(192,132,252,0.4); }
+
+  /* ── SHARED FUNCTIONS ── */
+  .shared-section {
+    margin-top: 50px;
+  }
+
+  .shared-title {
+    text-align: center;
+    font-family: 'Unbounded', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  .shared-title::before,
+  .shared-title::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: calc(50% - 120px);
+    height: 1px;
+    background: var(--border);
+  }
+  .shared-title::before { left: 0; }
+  .shared-title::after { right: 0; }
+
+  .shared-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+  }
+
+  .shared-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+    transition: border-color 0.2s, transform 0.15s;
+    cursor: default;
+  }
+
+  .shared-card:hover {
+    border-color: rgba(255,255,255,0.15);
+    transform: translateY(-2px);
+  }
+
+  .shared-icon { font-size: 22px; margin-bottom: 8px; }
+
+  .shared-name {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .shared-resp {
+    font-size: 10px;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+
+  /* ── LEGEND ── */
+  .legend {
+    display: flex;
+    justify-content: center;
+    gap: 28px;
+    margin-top: 40px;
+    flex-wrap: wrap;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+
+  @media (max-width: 1100px) {
+    .companies-row { grid-template-columns: repeat(2, 1fr); }
+    .companies-row::before { display: none; }
+    .shared-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 600px) {
+    .companies-row { grid-template-columns: 1fr; }
+  }
+
+  /* ── SEARCH + AI PANEL ── */
+  .search-ai-panel {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 32px;
+    align-items: center;
+  }
+
+  .search-box {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 10px 16px;
+    transition: border-color 0.2s;
+  }
+
+  .search-box:focus-within { border-color: var(--accent1); }
+  .search-icon { font-size: 16px; flex-shrink: 0; }
+
+  .search-box input {
+    flex: 1;
+    background: none;
+    border: none;
+    outline: none;
+    color: var(--text);
+    font-size: 13px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .search-box input::placeholder { color: var(--muted); }
+
+  .search-clear {
+    background: none;
+    border: none;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 14px;
+    padding: 0;
+  }
+
+  .ai-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #1a2240, #1e2a4a);
+    border: 1px solid var(--accent1);
+    border-radius: 12px;
+    color: var(--accent1);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 10px 20px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s, box-shadow 0.2s;
+  }
+
+  .ai-btn:hover { box-shadow: 0 0 20px rgba(79,142,247,0.2); background: #1e2d4a; }
+
+  /* AI PANEL */
+  .ai-panel {
+    background: var(--surface);
+    border: 1px solid var(--accent1);
+    border-radius: 16px;
+    margin-bottom: 32px;
+    overflow: hidden;
+    box-shadow: 0 0 40px rgba(79,142,247,0.08);
+  }
+
+  .ai-header {
+    padding: 16px 20px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .ai-title { font-family: 'Unbounded', sans-serif; font-size: 13px; color: var(--accent1); margin-bottom: 3px; }
+  .ai-subtitle { font-size: 11px; color: var(--muted); }
+
+  .ai-messages {
+    min-height: 60px;
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 12px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .ai-msg {
+    display: flex;
+    gap: 10px;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .ai-msg.user { justify-content: flex-end; }
+  .ai-msg.user .ai-bubble { background: rgba(79,142,247,0.15); border: 1px solid rgba(79,142,247,0.3); color: var(--text); border-radius: 12px 12px 4px 12px; }
+  .ai-msg.bot .ai-bubble { background: #1a1e2a; border: 1px solid var(--border); color: var(--text); border-radius: 12px 12px 12px 4px; }
+  .ai-bubble { padding: 8px 12px; max-width: 80%; }
+
+  .ai-input-row {
+    display: flex;
+    gap: 8px;
+    padding: 12px 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  .ai-input-row input {
+    flex: 1;
+    background: #1a1e2a;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    padding: 9px 14px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .ai-input-row input:focus { border-color: var(--accent1); }
+  .ai-input-row input::placeholder { color: var(--muted); }
+
+  .ai-send {
+    background: var(--accent1);
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 16px;
+    width: 36px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  .ai-send:hover { opacity: 0.85; }
+
+  /* SEARCH HIGHLIGHT */
+  .search-info {
+    text-align: center;
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  .dept-member.highlight {
+    background: rgba(79,142,247,0.12) !important;
+    border-left: 3px solid var(--accent1) !important;
+  }
+
+  .dept.highlight-dept > .dept-header {
+    background: rgba(79,142,247,0.08);
+  }
+
+  .dept-member-name.highlight-text {
+    color: var(--accent1) !important;
+  }
+
+
+  .dept-member {
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .dept-member:hover { background: rgba(255,255,255,0.04); }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(6px);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-overlay.active { display: flex; }
+
+  .modal {
+    background: #13161f;
+    border: 1px solid #2a2f42;
+    border-radius: 20px;
+    padding: 0;
+    width: 320px;
+    max-height: 85vh;
+    overflow-y: auto;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+    animation: modalIn 0.2s ease;
+  }
+
+  @keyframes modalIn {
+    from { opacity: 0; transform: scale(0.92) translateY(10px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  .modal-photo {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    object-position: top;
+    display: block;
+  }
+
+  .modal-photo-placeholder {
+    width: 100%;
+    height: 200px;
+    background: linear-gradient(135deg, #1a2035, #222840);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 64px;
+  }
+
+  .modal-body { padding: 20px; }
+
+  .modal-name {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+
+  .modal-role {
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  .modal-contacts { display: flex; flex-direction: column; gap: 8px; }
+
+  .modal-contact {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #1a1e2a;
+    border: 1px solid #252a3a;
+    border-radius: 10px;
+    padding: 10px 14px;
+    text-decoration: none;
+    color: var(--text);
+    font-size: 12px;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .modal-contact:hover { border-color: #4f8ef7; background: #1a2035; }
+  .modal-contact-icon { font-size: 16px; }
+
+  .modal-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.5);
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+  }
+
+  .modal-wrapper { position: relative; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <h1>Група Компаній</h1>
+  <div class="subtitle">Організаційна Структура</div>
+
+  <!-- SEARCH + AI PANEL -->
+  <div class="search-ai-panel">
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="searchInput" placeholder="Пошук по імені або відділу..." oninput="doSearch(this.value)">
+      <button class="search-clear" id="searchClear" onclick="clearSearch()" style="display:none;">✕</button>
+    </div>
+    <button class="ai-btn" onclick="toggleAI()">
+      <span>🤖</span> Хто відповідає за...?
+    </button>
+  </div>
+
+  <!-- AI ASSISTANT -->
+  <div class="ai-panel" id="aiPanel" style="display:none;">
+    <div class="ai-header">
+      <div class="ai-title">🤖 AI-асистент</div>
+      <div class="ai-subtitle">Опишіть своє питання — я знайду до кого звернутись</div>
+    </div>
+    <div class="ai-messages" id="aiMessages"></div>
+    <div class="ai-input-row">
+      <input type="text" id="aiInput" placeholder="Наприклад: не працює комп'ютер, питання по зарплаті..." onkeydown="if(event.key==='Enter') sendAI()">
+      <button class="ai-send" onclick="sendAI()">↑</button>
+    </div>
+  </div>
+
+  <!-- SEARCH HIGHLIGHT OVERLAY MESSAGE -->
+  <div id="searchInfo" class="search-info" style="display:none;"></div>
+
+  <div class="owner-row">
+    <div class="owner-card">
+      <div class="owner-label">Власник / Засновник</div>
+      <div class="owner-name">Берчатов Олексій Миколайович</div>
+      <div class="owner-role">Стратегічне керівництво · Всі чотири компанії</div>
+    </div>
+  </div>
+
+  <div class="connector-bar"></div>
+
+  <!-- COMPANIES -->
+  <div class="companies-row">
+
+    <!-- ABERTIME -->
+    <div class="company-column c1-col">
+      <div class="company-card c1">
+        <div class="company-tag">Компанія 1</div>
+        <div class="company-name">Abertime</div>
+        <div class="company-desc">Торгівля</div>
+        <span class="director-badge">Директор</span>
+      </div>
+      <div class="vert-line c1-line"></div>
+      <div class="depts">
+
+        <!-- Керівництво -->
+        <div class="dept" style="border-color: rgba(79,142,247,0.5);">
+          <div class="dept-header" onclick="toggleDept(this)">
+            <div class="dept-icon">👑</div>
+            <div class="dept-info">
+              <div class="dept-name">Керівництво</div>
+              <div class="dept-resp">Саджениця Х.М. — Помічниця директора</div>
+            </div>
+            <span class="dept-arrow">▼</span>
+          </div>
+          <div class="dept-body">
+            <div class="dept-member" onclick="openModal('Саджениця Христина Миколаївна','Помічниця директора','','','')"><span class="dept-member-icon">🤝</span><div><div class="dept-member-name">Саджениця Х.М.</div><div class="dept-member-role">Помічниця директора</div></div></div>
+          </div>
+        </div>
+
+        <!-- Департамент з продажів -->
+        <div class="dept">
+          <div class="dept-header" onclick="toggleDept(this)">
+            <div class="dept-icon">💼</div>
+            <div class="dept-info">
+              <div class="dept-name">Департамент з продажів</div>
+              <div class="dept-resp">Кравець О.В. — Керівник</div>
+            </div>
+            <span class="dept-arrow">▼</span>
+          </div>
+          <div class="dept-body">
+            <div class="dept-member" onclick="openModal('Кравець Ольга Василівна','Керівник відділу з продажів','','','')"><span class="dept-member-icon">⭐</span><div><div class="dept-member-name">Кравець О.В.</div><div class="dept-member-role">Керівник відділу</div></div></div>
+            <div class="dept-member" onclick="openModal('Роль Христина Романівна','Старший менеджер','','','')"><span class="dept-member-icon">⭐</span><div><div class="dept-member-name">Роль Х.Р.</div><div class="dept-member-role">Старший менеджер</div></div></div>
+            <div class="dept-member" onclick="openModal('Вовк Діана Степанівна','Менеджер B2B','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Вовк Д.С.</div><div class="dept-member-role">Менеджер B2B</div></div></div>
+            <div class="dept-member" onclick="openModal('Івашків Іванна Ігорівна','Менеджер B2B','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Івашків І.І.</div><div class="dept-member-role">Менеджер B2B</div></div></div>
+            <div class="dept-member" onclick="openModal('Козловська Таня Романівна','Менеджер по роботі з Rozetka','','','')"><span class="dept-member-icon">🛒</span><div><div class="dept-member-name">Козловська Т.Р.</div><div class="dept-member-role">Менеджер Rozetka</div></div></div>
+            <div class="dept-member" onclick="openModal('Прокопенко Анастасія Олексіївна','Менеджер B2B','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Прокопенко А.О.</div><div class="dept-member-role">Менеджер B2B</div></div></div>
+          </div>
+        </div>
+
+        <!-- Департамент з маркетингу -->
+        <div class="dept">
+          <div class="dept-header" onclick="toggleDept(this)">
+            <div class="dept-icon">📣</div>
+            <div class="dept-info">
+              <div class="dept-name">Департамент з маркетингу</div>
+              <div class="dept-resp">2 співробітники</div>
+            </div>
+            <span class="dept-arrow">▼</span>
+          </div>
+          <div class="dept-body">
+            <div class="dept-member" onclick="openModal('Кулик Марта Василівна','Контент-крієйтор','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Кулик М.В.</div><div class="dept-member-role">Контент-крієйтор</div></div></div>
+            <div class="dept-member" onclick="openModal('Пенцак Вікторія Андріївна','Контент менеджер','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Пенцак В.А.</div><div class="dept-member-role">Контент менеджер</div></div></div>
+            <div class="dept-member" onclick="openModal('Ходачок Данило Дмитрович','SMM','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Ходачок Д.Д.</div><div class="dept-member-role">SMM</div></div></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- АВАРДЕР -->
+    <div class="company-column c2-col">
+      <div class="company-card c2">
+        <div class="company-tag">Компанія 2</div>
+        <div class="company-name">Awarder</div>
+        <div class="company-desc">Торгівля / Дизайн / Маркетинг</div>
+        <span class="director-badge">Директор</span>
+      </div>
+      <div class="vert-line c2-line"></div>
+      <div class="depts">
+
+        <div class="dept" style="border-color: rgba(247,162,79,0.5);">
+          <div class="dept-header" onclick="toggleDept(this)">
+            <div class="dept-icon">👑</div>
+            <div class="dept-info">
+              <div class="dept-name">Керівництво</div>
+              <div class="dept-resp">Осередчук М.І. · Жарко С.В. · Баранець О.Є.</div>
+            </div>
+            <span class="dept-arrow">▼</span>
+          </div>
+          <div class="dept-body">
+            <div class="dept-member" onclick="openModal('Осередчук Марко Ігорович','CEO Awarder','','','')"><span class="dept-member-icon">⭐</span><div><div class="dept-member-name">Осередчук М.І.</div><div class="dept-member-role">CEO</div></div></div>
+            <div class="dept-member" onclick="openModal('Жарко Серафима Віталіївна','Помічниця CEO','','','')"><span class="dept-member-icon">🤝</span><div><div class="dept-member-name">Жарко С.В.</div><div class="dept-member-role">Помічниця CEO</div></div></div>
+            <div class="dept-member" onclick="openModal('Баранець Ольга Євгенівна','Операціоніст помічниці','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Баранець О.Є.</div><div class="dept-member-role">Операціоніст</div></div></div>
+          </div>
+        </div>
+
+        <div class="dept">
+          <div class="dept-header" onclick="toggleDept(this)">
+            <div class="dept-icon">🎨</div>
+            <div class="dept-info">
+              <div class="dept-name">Департамент з дизайну</div>
+              <div class="dept-resp">3 співробітники</div>
+            </div>
+            <span class="dept-arrow">▼</span>
+          </div>
+          <div class="dept-body">
+            <div class="dept-member" onclick="openModal('Алійчук Тетяна Борисівна','Дизайнер','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Алійчук Т.Б.</div></div></div>
+            <div class="dept-member" onclick="openModal('Дорош Вікторія Остапівна','Дизайнер','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Дорош В.О.</div></div></div>
+            <div class="dept-member" onclick="openModal('Середа Соломія Михайлівна','Дизайнер','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Середа С.М.</div></div></div>
+          </div>
+        </div>
+
+        <div class="dept">
+          <div class="dept-header" onclick="toggleDept(this)">
+            <div class="dept-icon">💼</div>
+            <div class="dept-info">
+              <div class="dept-name">Департамент з продажів</div>
+              <div class="dept-resp">Гончаренко Б.Г. — Керівник</div>
+            </div>
+            <span class="dept-arrow">▼</span>
+          </div>
+          <div class="dept-body">
+            <div class="dept-member" onclick="openModal('Гончаренко Богдан Генадійович','Керівник відділу з продажів','','','')"><span class="dept-member-icon">⭐</span><div><div class="dept-member-name">Гончаренко Б.Г.</div><div class="dept-member-role">Керівник відділу</div></div></div>
+            <div class="dept-member" onclick="openModal('Лісовський Валерій Валерійович','Менеджер з продажів','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Лісовський В.В.</div></div></div>
+            <div class="dept-member" onclick="openModal('Гнатишин Андрій Іванович','Менеджер з продажів','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Гнатишин А.І.</div></div></div>
+            <div class="dept-member" onclick="openModal('Коротенко Юлія Олександрівна','Менеджер з продажів','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Коротенко Ю.О.</div></div></div>
+            <div class="dept-member" onclick="openModal('Мельник Вероніка Сергіївна','Менеджер з продажів','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Мельник В.С.</div></div></div>
+            <div class="dept-member" onclick="openModal('Романюк Олексій Миколайович','Менеджер з продажів','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Романюк О.М.</div></div></div>
+            <div class="dept-member" onclick="openModal('Сохацький Олег Анатолійович','Менеджер з продажів','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Сохацький О.А.</div></div></div>
+            <div class="dept-member" onclick="openModal('Ткаченко Валентин Володимирович','Менеджер з продажів','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Ткаченко В.В.</div></div></div>
+            <div class="dept-member" onclick="openModal('Шваюк Христина Ярославівна','Менеджер з продажів','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Шваюк Х.Я.</div></div></div>
+            <div class="dept-member" onclick="openModal('Швидич Марина Анатоліївна','Менеджер з продажів','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Швидич М.А.</div></div></div>
+            <div class="dept-member" onclick="openModal('Шутка Віталій Олегович','Менеджер з продажів','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Шутка В.О.</div></div></div>
+          </div>
+        </div>
+
+        <div class="dept">
+          <div class="dept-header" onclick="toggleDept(this)">
+            <div class="dept-icon">📣</div>
+            <div class="dept-info">
+              <div class="dept-name">Департамент з маркетингу</div>
+              <div class="dept-resp">4 співробітники</div>
+            </div>
+            <span class="dept-arrow">▼</span>
+          </div>
+          <div class="dept-body">
+            <div class="dept-member" onclick="openModal('Медведєва Галина Дмитрівна','Маркетолог','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Медведєва Г.Д.</div></div></div>
+            <div class="dept-member" onclick="openModal('Мороз Олена Русланівна','Маркетолог','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Мороз О.Р.</div></div></div>
+            <div class="dept-member" onclick="openModal('Родзінська Мар&#39;яна Ігорівна','Маркетолог','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Родзінська М.І.</div></div></div>
+            <div class="dept-member" onclick="openModal('Лапицька Вероніка Володимирівна','Маркетолог','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Лапицька В.В.</div></div></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- АБТАЙМ -->
+    <div class="company-column c3-col">
+      <div class="company-card c3">
+        <div class="company-tag">Компанія 3</div>
+        <div class="company-name">Abtime</div>
+        <div class="company-desc">Торгівля</div>
+        <span class="director-badge">Директор</span>
+      </div>
+      <div class="vert-line c3-line"></div>
+      <div class="depts">
+
+        <div class="dept" style="border-color: rgba(79,247,162,0.5);">
+          <div class="dept-header" onclick="toggleDept(this)">
+            <div class="dept-icon">👑</div>
+            <div class="dept-info">
+              <div class="dept-name">Керівництво</div>
+              <div class="dept-resp">Кремса Ю.Т. — Операціоніст</div>
+            </div>
+            <span class="dept-arrow">▼</span>
+          </div>
+          <div class="dept-body">
+            <div class="dept-member" onclick="openModal('Кремса Юстина Тарасівна','Операціоніст помічниці керівника','','','')"><span class="dept-member-icon">🤝</span><div><div class="dept-member-name">Кремса Ю.Т.</div><div class="dept-member-role">Операціоніст помічниці керівника</div></div></div>
+          </div>
+        </div>
+
+        <div class="dept">
+          <div class="dept-header" onclick="toggleDept(this)">
+            <div class="dept-icon">📣</div>
+            <div class="dept-info">
+              <div class="dept-name">Департамент з маркетингу</div>
+              <div class="dept-resp">5 співробітників</div>
+            </div>
+            <span class="dept-arrow">▼</span>
+          </div>
+          <div class="dept-body">
+            <div class="dept-member" onclick="openModal('Андреєва Віра Євгенівна','SEO та контент','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Андреєва В.Є.</div><div class="dept-member-role">SEO, контент</div></div></div>
+            <div class="dept-member" onclick="openModal('Богомаз Олена Сергіївна','SMM','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Богомаз О.С.</div><div class="dept-member-role">SMM</div></div></div>
+            <div class="dept-member" onclick="openModal('Запара Артур Сергійович','Head of Digital','','','')"><span class="dept-member-icon">⭐</span><div><div class="dept-member-name">Запара А.С.</div><div class="dept-member-role">Head of Digital</div></div></div>
+            <div class="dept-member" onclick="openModal('Світлик Ангеліна Ігорівна','Content Creator','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Світлик А.І.</div><div class="dept-member-role">Content Creator</div></div></div>
+            <div class="dept-member" onclick="openModal('Павлик Андрій Петрович','Контент менеджер','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Павлик А.П.</div><div class="dept-member-role">Контент менеджер</div></div></div>
+          </div>
+        </div>
+
+        <div class="dept">
+          <div class="dept-header" onclick="toggleDept(this)">
+            <div class="dept-icon">💼</div>
+            <div class="dept-info">
+              <div class="dept-name">Департамент з продажів</div>
+              <div class="dept-resp">Кравець О.В. — Керівник</div>
+            </div>
+            <span class="dept-arrow">▼</span>
+          </div>
+          <div class="dept-body">
+            <div class="dept-member" onclick="openModal('Кравець Ольга Василівна','Керівник відділу з продажів','','','')"><span class="dept-member-icon">⭐</span><div><div class="dept-member-name">Кравець О.В.</div><div class="dept-member-role">Керівник відділу</div></div></div>
+            <div class="dept-member" onclick="openModal('Сусь Іванна Володимирівна','Менеджер з продажів','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Сусь І.В.</div><div class="dept-member-role">Менеджер</div></div></div>
+            <div class="dept-member" onclick="openModal('Шира Наталя Іванівна','Менеджер з продажів','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Шира Н.І.</div><div class="dept-member-role">Менеджер</div></div></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ФАБРИКА НАРУЧНИХ ГОДИННИКІВ -->
+    <div class="company-column c4-col">
+      <div class="company-card c4">
+        <div class="company-tag">Компанія 4</div>
+        <div class="company-name" style="font-size:12px;">Фабрика Наручних Годинників</div>
+        <div class="company-desc">Виробництво</div>
+        <span class="director-badge">Директор</span>
+      </div>
+      <div class="vert-line c4-line"></div>
+      <div class="depts">
+
+        <!-- Керівництво -->
+        <div class="dept" style="border-color: rgba(192,132,252,0.5);">
+          <div class="dept-header" onclick="toggleDept(this)">
+            <div class="dept-icon">👑</div>
+            <div class="dept-info">
+              <div class="dept-name">Керівництво</div>
+              <div class="dept-resp">Флис В.І. · Бабинін О.Г.</div>
+            </div>
+            <span class="dept-arrow">▼</span>
+          </div>
+          <div class="dept-body">
+            <div class="dept-member" onclick="openModal('Флис Володимир Іванович','Відповідальний за процеси та метрики','','','')"><span class="dept-member-icon">⭐</span><div><div class="dept-member-name">Флис В.І.</div><div class="dept-member-role">Відповідальний за процеси та метрики</div></div></div>
+            <div class="dept-member" onclick="openModal('Бабинін Олексій Григорович','Відповідальний за технології, розробка та вдосконалення','','','')"><span class="dept-member-icon">⭐</span><div><div class="dept-member-name">Бабинін О.Г.</div><div class="dept-member-role">Відповідальний за технології, розробка та вдосконалення</div></div></div>
+          </div>
+        </div>
+
+        <div class="dept">
+          <div class="dept-header" onclick="toggleDept(this)">
+            <div class="dept-icon">🔍</div>
+            <div class="dept-info">
+              <div class="dept-name">Відділ контролю якості</div>
+              <div class="dept-resp">2 співробітники</div>
+            </div>
+            <span class="dept-arrow">▼</span>
+          </div>
+          <div class="dept-body">
+            <div class="dept-member" onclick="openModal('Ващук Ірина Петрівна','','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Ващук І.П.</div></div></div>
+            <div class="dept-member" onclick="openModal('Калатало Марія Євгенівна','','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Калатало М.Є.</div></div></div>
+          </div>
+        </div>
+
+        <div class="dept">
+          <div class="dept-header" onclick="toggleDept(this)">
+            <div class="dept-icon">🎨</div>
+            <div class="dept-info">
+              <div class="dept-name">Департамент з дизайну</div>
+              <div class="dept-resp">5 співробітників</div>
+            </div>
+            <span class="dept-arrow">▼</span>
+          </div>
+          <div class="dept-body">
+            <div class="dept-member" onclick="openModal('Вантух Анастасія Василівна','','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Вантух А.В.</div></div></div>
+            <div class="dept-member" onclick="openModal('Дубовець Ігор Юрійович','','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Дубовець І.Ю.</div></div></div>
+            <div class="dept-member" onclick="openModal('Мельник Софія Леонідівна','','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Мельник С.Л.</div></div></div>
+            <div class="dept-member" onclick="openModal('Мічурін Остап Володимирович','','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Мічурін О.В.</div></div></div>
+            <div class="dept-member" onclick="openModal('Слижук Василь Васильович','','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Слижук В.В.</div></div></div>
+          </div>
+        </div>
+
+        <div class="dept">
+          <div class="dept-header" onclick="toggleDept(this)">
+            <div class="dept-icon">⚙️</div>
+            <div class="dept-info">
+              <div class="dept-name">Збірка / Розбірка</div>
+              <div class="dept-resp">12 збирачів</div>
+            </div>
+            <span class="dept-arrow">▼</span>
+          </div>
+          <div class="dept-body">
+            <div class="dept-member" onclick="openModal('Головко Ольга Михайлівна','','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Головко О.М.</div></div></div>
+            <div class="dept-member" onclick="openModal('Іванців Мирослава-Соломія Іванівна','','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Іванців М.І.</div></div></div>
+            <div class="dept-member" onclick="openModal('Каліщак Зоряна Олегівна','','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Каліщак З.О.</div></div></div>
+            <div class="dept-member" onclick="openModal('Ковалів Ольга Іванівна','','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Ковалів О.І.</div></div></div>
+            <div class="dept-member" onclick="openModal('Корилець Мар&#39;ян Володимирович','','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Корилець М.В.</div></div></div>
+            <div class="dept-member" onclick="openModal('Кравець Ганна Василівна','','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Кравець Г.В.</div></div></div>
+            <div class="dept-member" onclick="openModal('Кушка Марія Євгенівна','','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Кушка М.Є.</div></div></div>
+            <div class="dept-member" onclick="openModal('Лоза Тетяна Вікторівна','','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Лоза Т.В.</div></div></div>
+            <div class="dept-member" onclick="openModal('Мельник Тарас Олегович','','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Мельник Т.О.</div></div></div>
+            <div class="dept-member" onclick="openModal('Федячко Мар&#39;яна Василівна','','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Федячко М.В.</div></div></div>
+            <div class="dept-member" onclick="openModal('Шередько Катерина Богданівна','','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Шередько К.Б.</div></div></div>
+            <div class="dept-member" onclick="openModal('Сусь Любов Володимирівна','','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Сусь Л.В.</div></div></div>
+          </div>
+        </div>
+
+        <div class="dept">
+          <div class="dept-header" onclick="toggleDept(this)">
+            <div class="dept-icon">🔆</div>
+            <div class="dept-info">
+              <div class="dept-name">Лазер</div>
+              <div class="dept-resp">4 співробітники</div>
+            </div>
+            <span class="dept-arrow">▼</span>
+          </div>
+          <div class="dept-body">
+            <div class="dept-member" onclick="openModal('Варениця Володимир Ігорович','','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Варениця В.І.</div></div></div>
+            <div class="dept-member" onclick="openModal('Загайчук Сергій Володимирович','','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Загайчук С.В.</div></div></div>
+            <div class="dept-member" onclick="openModal('Магера Михайло Євгенович','','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Магера М.Є.</div></div></div>
+            <div class="dept-member" onclick="openModal('Паночко Віра Іванівна','','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Паночко В.І.</div></div></div>
+          </div>
+        </div>
+
+        <div class="dept">
+          <div class="dept-header" onclick="toggleDept(this)">
+            <div class="dept-icon">🚚</div>
+            <div class="dept-info">
+              <div class="dept-name">Постачання</div>
+              <div class="dept-resp">2 співробітники</div>
+            </div>
+            <span class="dept-arrow">▼</span>
+          </div>
+          <div class="dept-body">
+            <div class="dept-member" onclick="openModal('Павлів Христина Іванівна','','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Павлів Х.І.</div></div></div>
+            <div class="dept-member" onclick="openModal('Саган Ольга Євгенівна','','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Саган О.Є.</div></div></div>
+          </div>
+        </div>
+
+        <div class="dept">
+          <div class="dept-header" onclick="toggleDept(this)">
+            <div class="dept-icon">💡</div>
+            <div class="dept-info">
+              <div class="dept-name">УФ (УФ-друк)</div>
+              <div class="dept-resp">3 співробітники</div>
+            </div>
+            <span class="dept-arrow">▼</span>
+          </div>
+          <div class="dept-body">
+            <div class="dept-member" onclick="openModal('Бабінін Олександр Григорович','','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Бабінін О.Г.</div></div></div>
+            <div class="dept-member" onclick="openModal('Знатеняк Володимир Васильович','','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Знатеняк В.В.</div></div></div>
+            <div class="dept-member" onclick="openModal('Мантошко Христина Василівна','','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Мантошко Х.В.</div></div></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SHARED FUNCTIONS -->
+  <div class="shared-section">
+    <div class="shared-title">Спільні функції для всієї групи</div>
+    <div class="shared-grid" style="grid-template-columns: repeat(6, 1fr);">
+
+      <div class="shared-card" style="padding:0; overflow:hidden;">
+        <div class="dept-header" onclick="toggleDept(this)" style="padding:16px;">
+          <div style="font-size:22px; margin-bottom:0; margin-right:10px;">💰</div>
+          <div class="dept-info">
+            <div class="dept-name" style="font-size:12px;">Фінанси / Бухгалтерія</div>
+            <div class="dept-resp">Звітність, бюджет, податки</div>
+          </div>
+          <span class="dept-arrow">▼</span>
+        </div>
+        <div class="dept-body">
+          <div class="dept-member" onclick="openModal('Головний бухгалтер / CFO','','','','')"><span class="dept-member-icon">⭐</span><div><div class="dept-member-name">Головний б./.</div></div></div>
+        </div>
+      </div>
+
+      <div class="shared-card" style="padding:0; overflow:hidden;">
+        <div class="dept-header" onclick="toggleDept(this)" style="padding:16px;">
+          <div style="font-size:22px; margin-bottom:0; margin-right:10px;">📣</div>
+          <div class="dept-info">
+            <div class="dept-name" style="font-size:12px;">Маркетинг</div>
+            <div class="dept-resp">Бренд, реклама, SMM</div>
+          </div>
+          <span class="dept-arrow">▼</span>
+        </div>
+        <div class="dept-body">
+          <div class="dept-member" onclick="openModal('Керівник маркетингу','','','','')"><span class="dept-member-icon">⭐</span><div><div class="dept-member-name">Керівник м.</div></div></div>
+        </div>
+      </div>
+
+      <div class="shared-card" style="padding:0; overflow:hidden;">
+        <div class="dept-header" onclick="toggleDept(this)" style="padding:16px;">
+          <div style="font-size:22px; margin-bottom:0; margin-right:10px;">💻</div>
+          <div class="dept-info">
+            <div class="dept-name" style="font-size:12px;">IT</div>
+            <div class="dept-resp">Інфраструктура, CRM, безпека</div>
+          </div>
+          <span class="dept-arrow">▼</span>
+        </div>
+        <div class="dept-body">
+          <div class="dept-member" onclick="openModal('Романчук Олександр Сергійович','Керівник IT','','','')"><span class="dept-member-icon">⭐</span><div><div class="dept-member-name">Романчук О.С.</div><div class="dept-member-role">Керівник IT</div></div></div>
+          <div class="dept-member" onclick="openModal('Гук Віктор Степанович','IT-спеціаліст','+380662987781','@Fourierr','guk')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Гук В.С.</div></div></div>
+          <div class="dept-member" onclick="openModal('Кравець Олег Ярославович','IT-спеціаліст','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Кравець О.Я.</div></div></div>
+          <div class="dept-member" onclick="openModal('Левицький Олесь Андрійович','IT-спеціаліст','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Левицький О.А.</div></div></div>
+        </div>
+      </div>
+
+      <div class="shared-card" style="padding:0; overflow:hidden;">
+        <div class="dept-header" onclick="toggleDept(this)" style="padding:16px;">
+          <div style="font-size:22px; margin-bottom:0; margin-right:10px;">⚖️</div>
+          <div class="dept-info">
+            <div class="dept-name" style="font-size:12px;">Юридичний</div>
+            <div class="dept-resp">Договори, відповідність</div>
+          </div>
+          <span class="dept-arrow">▼</span>
+        </div>
+        <div class="dept-body">
+          <div class="dept-member" onclick="openModal('Юрист / Аутсорс','','','','')"><span class="dept-member-icon">⭐</span><div><div class="dept-member-name">Юрист /.А.</div></div></div>
+        </div>
+      </div>
+
+      <div class="shared-card" style="padding:0; overflow:hidden;">
+        <div class="dept-header" onclick="toggleDept(this)" style="padding:16px;">
+          <div style="font-size:22px; margin-bottom:0; margin-right:10px;">📦</div>
+          <div class="dept-info">
+            <div class="dept-name" style="font-size:12px;">Департамент логістики</div>
+            <div class="dept-resp">Патинко В.І. — Зав. складом</div>
+          </div>
+          <span class="dept-arrow">▼</span>
+        </div>
+        <div class="dept-body">
+          <div class="dept-member" onclick="openModal('Патинко Володимир Іванович','Завідувач складом','','','')"><span class="dept-member-icon">⭐</span><div><div class="dept-member-name">Патинко В.І.</div><div class="dept-member-role">Завідувач складом</div></div></div>
+          <div class="dept-member" onclick="openModal('Ільчишин Аліна Михайлівна','Робітник складу','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Ільчишин А.М.</div><div class="dept-member-role">Робітник складу</div></div></div>
+          <div class="dept-member" onclick="openModal('Павлюк Володимир Тарасович','Пакувальник','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Павлюк В.Т.</div><div class="dept-member-role">Пакувальник</div></div></div>
+          <div class="dept-member" onclick="openModal('Яремко Анастасія Володимирівна','Логіст','','','','Відправка посилок: створення ТТН в 1С або кабінеті НП, контроль суми наложки і способу оплати, проклейка ТТН, переадресація, зміна даних отримувача та післяплати, повторне відправлення повернень, скасування замовлень. Міжнародні відправлення: передача даних НП, перевірка ТТН, оформлення в 1С. Специфікація повернень НП. Контроль підпису документів. Облік оплат на НП та Укрпошті.')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Яремко А.В.</div><div class="dept-member-role">Логіст</div></div></div>
+        </div>
+      </div>
+
+      <div class="shared-card" style="padding:0; overflow:hidden; border-color: rgba(255,255,255,0.12);">
+        <div class="dept-header" onclick="toggleDept(this)" style="padding:16px;">
+          <div style="font-size:22px; margin-bottom:0; margin-right:10px;">🛠️</div>
+          <div class="dept-info">
+            <div class="dept-name" style="font-size:12px;">Сервісний центр</div>
+            <div class="dept-resp" style="color:#4ff7a2; font-size:9px;">● Обслуговує всі компанії</div>
+          </div>
+          <span class="dept-arrow">▼</span>
+        </div>
+        <div class="dept-body">
+          <div class="dept-member" onclick="openModal('Павлів Леся Володимирівна','Керівник сервісу','','','')"><span class="dept-member-icon">⭐</span><div><div class="dept-member-name">Павлів Л.В.</div><div class="dept-member-role">Керівник сервісу</div></div></div>
+          <div class="dept-member" onclick="openModal('Савицький Сергій','Майстер сервісу','','','')"><span class="dept-member-icon">🔧</span><div><div class="dept-member-name">Савицький С.</div><div class="dept-member-role">Майстер сервісу</div></div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- LEGEND -->
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background: var(--accent1)"></div>Abertime</div>
+    <div class="legend-item"><div class="legend-dot" style="background: var(--accent2)"></div>Авардер</div>
+    <div class="legend-item"><div class="legend-dot" style="background: var(--accent3)"></div>Abtime</div>
+    <div class="legend-item"><div class="legend-dot" style="background: var(--accent4)"></div>Фабрика Наручних Годинників</div>
+    <div class="legend-item"><div class="legend-dot" style="background: var(--muted)"></div>Спільні функції</div>
+  </div>
+
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+  <div class="modal-wrapper">
+    <div class="modal" id="modal">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div id="modalPhotoArea"></div>
+      <div class="modal-body">
+        <div class="modal-name" id="modalName"></div>
+        <div class="modal-role" id="modalRole"></div>
+        <div class="modal-contacts" id="modalContacts"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function toggleDept(header) {
+    const parent = header.closest('.dept, .shared-card');
+    if (parent) parent.classList.toggle('open');
+  }
+
+  // ── SEARCH ──
+  function doSearch(val) {
+    const clearBtn = document.getElementById('searchClear');
+    const info = document.getElementById('searchInfo');
+    clearBtn.style.display = val ? 'block' : 'none';
+
+    // Remove previous highlights
+    document.querySelectorAll('.dept-member').forEach(m => m.classList.remove('highlight'));
+    document.querySelectorAll('.dept-member-name').forEach(n => n.classList.remove('highlight-text'));
+    document.querySelectorAll('.dept').forEach(d => d.classList.remove('highlight-dept'));
+
+    if (!val.trim()) { info.style.display = 'none'; return; }
+
+    const q = val.toLowerCase().trim();
+    let found = 0;
+
+    document.querySelectorAll('.dept-member').forEach(member => {
+      const name = member.querySelector('.dept-member-name');
+      const role = member.querySelector('.dept-member-role');
+      const nameText = name ? name.textContent.toLowerCase() : '';
+      const roleText = role ? role.textContent.toLowerCase() : '';
+
+      if (nameText.includes(q) || roleText.includes(q)) {
+        member.classList.add('highlight');
+        if (name) name.classList.add('highlight-text');
+        // Open parent dept
+        const dept = member.closest('.dept, .shared-card');
+        if (dept) { dept.classList.add('open'); dept.classList.add('highlight-dept'); }
+        found++;
+      }
+    });
+
+    // Also search dept names
+    document.querySelectorAll('.dept-name').forEach(dn => {
+      if (dn.textContent.toLowerCase().includes(q)) {
+        const dept = dn.closest('.dept, .shared-card');
+        if (dept) { dept.classList.add('highlight-dept'); dept.classList.add('open'); }
+      }
+    });
+
+    info.style.display = found ? 'block' : 'block';
+    info.textContent = found ? `Знайдено: ${found} співробітник(ів)` : 'Нічого не знайдено';
+  }
+
+  function clearSearch() {
+    document.getElementById('searchInput').value = '';
+    doSearch('');
+  }
+
+  // ── AI ASSISTANT ──
+  function toggleAI() {
+    const panel = document.getElementById('aiPanel');
+    const isVisible = panel.style.display !== 'none';
+    panel.style.display = isVisible ? 'none' : 'block';
+    if (!isVisible && document.getElementById('aiMessages').children.length === 0) {
+      addBotMsg('Привіт! 👋 Опишіть своє питання або проблему, і я підкажу до кого звернутись у групі компаній.');
+    }
+  }
+
+  function addBotMsg(text) {
+    const msgs = document.getElementById('aiMessages');
+    msgs.innerHTML += `<div class="ai-msg bot"><div class="ai-bubble">${text}</div></div>`;
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  function addUserMsg(text) {
+    const msgs = document.getElementById('aiMessages');
+    msgs.innerHTML += `<div class="ai-msg user"><div class="ai-bubble">${text}</div></div>`;
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  async function sendAI() {
+    const input = document.getElementById('aiInput');
+    const question = input.value.trim();
+    if (!question) return;
+    input.value = '';
+    addUserMsg(question);
+    addBotMsg('⏳ Шукаю...');
+
+    // Build staff context from the page
+    const staffContext = buildStaffContext();
+
+    try {
+      const response = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 400,
+          system: `Ти помічник у системі оргструктури групи компаній. Твоя задача — допомогти співробітнику знайти потрібну людину або відділ для вирішення питання.
+
+Ось структура компаній та співробітники:
+${staffContext}
+
+Відповідай коротко, по-українськи. Вказуй конкретне ім'я (скорочено), посаду та компанію/відділ. Якщо є кілька варіантів — перелічи. Не більше 3-4 речень.`,
+          messages: [{ role: 'user', content: question }]
+        })
+      });
+
+      const data = await response.json();
+      const msgs = document.getElementById('aiMessages');
+      // Remove "шукаю" message
+      const lastMsg = msgs.lastElementChild;
+      if (lastMsg) lastMsg.remove();
+
+      const answer = data.content?.[0]?.text || 'Не вдалось отримати відповідь.';
+      addBotMsg(answer);
+    } catch(e) {
+      const msgs = document.getElementById('aiMessages');
+      const lastMsg = msgs.lastElementChild;
+      if (lastMsg) lastMsg.remove();
+      addBotMsg('Помилка підключення. Спробуйте ще раз.');
+    }
+  }
+
+  function buildStaffContext() {
+    let context = '';
+    document.querySelectorAll('.company-column').forEach(col => {
+      const companyName = col.querySelector('.company-name')?.textContent?.trim() || '';
+      context += `\nКомпанія: ${companyName}\n`;
+      col.querySelectorAll('.dept').forEach(dept => {
+        const deptName = dept.querySelector('.dept-name')?.textContent?.trim() || '';
+        context += `  Відділ: ${deptName}\n`;
+        dept.querySelectorAll('.dept-member').forEach(member => {
+          const name = member.querySelector('.dept-member-name')?.textContent?.trim() || '';
+          const role = member.querySelector('.dept-member-role')?.textContent?.trim() || '';
+          const onclick = member.getAttribute('onclick') || '';
+          const parts = onclick.replace("openModal(", "").replace(/\)$/, "").split(/,(?=')/).map(s => s.replace(/^'|'$/g, ''));
+          const duties = parts[5] || '';
+          context += `    - ${name}${role ? ' (' + role + ')' : ''}${duties ? ': ' + duties : ''}\n`;
+        });
+      });
+    });
+    // Add shared functions
+    context += '\nСпільні функції для всіх компаній:\n';
+    document.querySelectorAll('.shared-card').forEach(card => {
+      const name = card.querySelector('.dept-name')?.textContent?.trim() || '';
+      context += `  Відділ: ${name}\n`;
+      card.querySelectorAll('.dept-member').forEach(member => {
+        const mname = member.querySelector('.dept-member-name')?.textContent?.trim() || '';
+        const role = member.querySelector('.dept-member-role')?.textContent?.trim() || '';
+        context += `    - ${mname}${role ? ' (' + role + ')' : ''}\n`;
+      });
+    });
+    return context;
+  }
+
+  const photos = {
+    // 'guk': 'data:image/jpeg;base64,...'
+  };
+
+  function openModal(name, role, phone, telegram, photoKey, duties) {
+    document.getElementById('modalName').textContent = name;
+    document.getElementById('modalRole').textContent = role;
+    const photoArea = document.getElementById('modalPhotoArea');
+    if (photoKey && photos[photoKey]) {
+      photoArea.innerHTML = `<img class="modal-photo" src="${photos[photoKey]}" alt="${name}">`;
+    } else {
+      photoArea.innerHTML = `<div class="modal-photo-placeholder">👤</div>`;
+    }
+    const contacts = document.getElementById('modalContacts');
+    contacts.innerHTML = '';
+    if (phone) contacts.innerHTML += `<a class="modal-contact" href="tel:${phone}"><span class="modal-contact-icon">📱</span>${phone}</a>`;
+    if (telegram) contacts.innerHTML += `<a class="modal-contact" href="https://t.me/${telegram.replace('@','')}" target="_blank"><span class="modal-contact-icon">✈️</span>${telegram}</a>`;
+    if (duties) contacts.innerHTML += `<div style="display:none;" data-duties="${duties}"></div>`;
+    if (!phone && !telegram) contacts.innerHTML += `<div style="font-size:11px; color: var(--muted);">Контакти не додано</div>`;
+    document.getElementById('modalOverlay').classList.add('active');
+  }
+
+  function closeModal() { document.getElementById('modalOverlay').classList.remove('active'); }
+  function closeModalOutside(e) { if (e.target === document.getElementById('modalOverlay')) closeModal(); }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
+
+</body>
+</html>
