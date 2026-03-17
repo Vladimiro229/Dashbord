@@ -326,7 +326,16 @@
     font-size: 11px;
   }
 
-  .dept-member-icon { font-size: 13px; width: 20px; text-align: center; flex-shrink: 0; }
+  .dept-member-icon {
+  width: 20px;
+  min-width: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  line-height: 1;
+  font-size: 13px;
+}
 
   .dept-member-name { color: var(--text); font-weight: 500; }
   .dept-member-role { color: var(--muted); font-size: 10px; margin-top: 1px; }
@@ -739,7 +748,7 @@
   <div class="owner-row">
     <div class="owner-card">
       <div class="owner-label">Власник / Засновник</div>
-      <div class="owner-name">Берчатов Олексій Миколайович</div>
+      <div class="owner-name">🦸‍♂️ Берчатов Олексій Миколайович</div>
       <div class="owner-role">Стратегічне керівництво · Всі чотири компанії</div>
     </div>
   </div>
@@ -832,7 +841,7 @@
             <div class="dept-icon">👑</div>
             <div class="dept-info">
               <div class="dept-name">Керівництво</div>
-              <div class="dept-resp">Осередчук М.І. · Жарко С.В. · Баранець О.Є.</div>
+              <div class="dept-resp">Осередчук М.І.</div>
             </div>
             <span class="dept-arrow">▼</span>
           </div>
@@ -853,9 +862,9 @@
             <span class="dept-arrow">▼</span>
           </div>
           <div class="dept-body">
-            <div class="dept-member" onclick="openModal('Алійчук Тетяна Борисівна','Дизайнер','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Алійчук Т.Б.</div></div></div>
-            <div class="dept-member" onclick="openModal('Дорош Вікторія Остапівна','Дизайнер','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Дорош В.О.</div></div></div>
-            <div class="dept-member" onclick="openModal('Середа Соломія Михайлівна','Дизайнер','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Середа С.М.</div></div></div>
+            <div class="dept-member" onclick="openModal('Середа Соломія Михайлівна','Дизайнер','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Середа С.М.</div><div class="dept-member-role">Керівник відділу</div></div></div>
+            <div class="dept-member" onclick="openModal('Алійчук Тетяна Борисівна','Дизайнер','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Алійчук Т.Б.</div><div class="dept-member-role">Дизайнер</div></div></div>
+            <div class="dept-member" onclick="openModal('Дорош Вікторія Остапівна','Дизайнер','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Дорош В.О.</div><div class="dept-member-role">Дизайнер</div></div></div>
           </div>
         </div>
 
@@ -864,22 +873,22 @@
             <div class="dept-icon">💼</div>
             <div class="dept-info">
               <div class="dept-name">Департамент з продажів</div>
-              <div class="dept-resp">Гончаренко Б.Г. — Керівник</div>
+              <div class="dept-resp">11 співробітників</div>
             </div>
             <span class="dept-arrow">▼</span>
           </div>
           <div class="dept-body">
             <div class="dept-member" onclick="openModal('Гончаренко Богдан Генадійович','Керівник відділу з продажів','','','')"><span class="dept-member-icon">⭐</span><div><div class="dept-member-name">Гончаренко Б.Г.</div><div class="dept-member-role">Керівник відділу</div></div></div>
-            <div class="dept-member" onclick="openModal('Лісовський Валерій Валерійович','Менеджер з продажів','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Лісовський В.В.</div></div></div>
-            <div class="dept-member" onclick="openModal('Гнатишин Андрій Іванович','Менеджер з продажів','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Гнатишин А.І.</div></div></div>
-            <div class="dept-member" onclick="openModal('Коротенко Юлія Олександрівна','Менеджер з продажів','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Коротенко Ю.О.</div></div></div>
-            <div class="dept-member" onclick="openModal('Мельник Вероніка Сергіївна','Менеджер з продажів','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Мельник В.С.</div></div></div>
-            <div class="dept-member" onclick="openModal('Романюк Олексій Миколайович','Менеджер з продажів','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Романюк О.М.</div></div></div>
-            <div class="dept-member" onclick="openModal('Сохацький Олег Анатолійович','Менеджер з продажів','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Сохацький О.А.</div></div></div>
-            <div class="dept-member" onclick="openModal('Ткаченко Валентин Володимирович','Менеджер з продажів','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Ткаченко В.В.</div></div></div>
-            <div class="dept-member" onclick="openModal('Шваюк Христина Ярославівна','Менеджер з продажів','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Шваюк Х.Я.</div></div></div>
-            <div class="dept-member" onclick="openModal('Швидич Марина Анатоліївна','Менеджер з продажів','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Швидич М.А.</div></div></div>
-            <div class="dept-member" onclick="openModal('Шутка Віталій Олегович','Менеджер з продажів','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Шутка В.О.</div></div></div>
+            <div class="dept-member" onclick="openModal('Лісовський Валерій Валерійович','Менеджер з продажів','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Лісовський В.В.</div><div class="dept-member-role">Order Manager</div></div></div>
+            <div class="dept-member" onclick="openModal('Гнатишин Андрій Іванович','Менеджер з продажів','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Гнатишин А.І.</div><div class="dept-member-role">Manager B2C</div></div></div>
+            <div class="dept-member" onclick="openModal('Коротенко Юлія Олександрівна','Менеджер з продажів','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Коротенко Ю.О.</div><div class="dept-member-role">Manager B2C</div></div></div>
+            <div class="dept-member" onclick="openModal('Мельник Вероніка Сергіївна','Менеджер з продажів','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Мельник В.С.</div><div class="dept-member-role">Manager B2C</div></div></div>
+            <div class="dept-member" onclick="openModal('Романюк Олексій Миколайович','Менеджер з продажів','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Романюк О.М.</div><div class="dept-member-role">Manager B2C</div></div></div>
+            <div class="dept-member" onclick="openModal('Сохацький Олег Анатолійович','Менеджер з продажів','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Сохацький О.А.</div><div class="dept-member-role">Manager B2C</div></div></div>
+            <div class="dept-member" onclick="openModal('Ткаченко Валентин Володимирович','Менеджер з продажів','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Ткаченко В.В.</div><div class="dept-member-role">Manager B2C</div></div></div>
+            <div class="dept-member" onclick="openModal('Шваюк Христина Ярославівна','Менеджер з продажів','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Шваюк Х.Я.</div><div class="dept-member-role">Manager B2C</div></div></div>
+            <div class="dept-member" onclick="openModal('Швидич Марина Анатоліївна','Менеджер з продажів','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Швидич М.А.</div><div class="dept-member-role">Manager B2C</div></div></div>
+            <div class="dept-member" onclick="openModal('Шутка Віталій Олегович','Менеджер з продажів','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Шутка В.О.</div><div class="dept-member-role">Manager B2C</div></div></div>
           </div>
         </div>
 
@@ -1110,13 +1119,18 @@
         <div class="dept-header" onclick="toggleDept(this)" style="padding:16px;">
           <div style="font-size:22px; margin-bottom:0; margin-right:10px;">💰</div>
           <div class="dept-info">
-            <div class="dept-name" style="font-size:12px;">Фінанси / Бухгалтерія</div>
-            <div class="dept-resp">Звітність, бюджет, податки</div>
+            <div class="dept-name" style="font-size:12px;">Фінансовий департамент</div>
+            <div class="dept-resp">-</div>
           </div>
           <span class="dept-arrow">▼</span>
         </div>
         <div class="dept-body">
-          <div class="dept-member" onclick="openModal('Головний бухгалтер / CFO','','','','')"><span class="dept-member-icon">⭐</span><div><div class="dept-member-name">Головний б./.</div></div></div>
+          <div class="dept-member" onclick="openModal('Єгорова Олена','Головний бухгалтер','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Єгорова О.</div><div class="dept-member-role">Головний бухгалтер</div></div></div>
+          <div class="dept-member" onclick="openModal('Жмінковська Маряна','Бухгалтер','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Жмінковська М.</div><div class="dept-member-role">Бухгалтер</div></div></div>
+          <div class="dept-member" onclick="openModal('Кравець Руслана','Бухгалтер','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Кравець Р.</div><div class="dept-member-role">Бухгалтер</div></div></div>
+          <div class="dept-member" onclick="openModal('Іващишин Уляна','Бухгалтер','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Уващишин У.</div><div class="dept-member-role">Бухгалтер</div></div></div>
+          <div class="dept-member" onclick="openModal('Андрейчук Любов','Бухгалтер','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Андрейчук Л.</div><div class="dept-member-role">Бухгалтер</div></div></div>
+
         </div>
       </div>
 
@@ -1170,14 +1184,14 @@
           <div style="font-size:22px; margin-bottom:0; margin-right:10px;">📦</div>
           <div class="dept-info">
             <div class="dept-name" style="font-size:12px;">Департамент логістики</div>
-            <div class="dept-resp">Патинко В.І. — Зав. складом</div>
+            <div class="dept-resp">4 співробітники</div>
           </div>
           <span class="dept-arrow">▼</span>
         </div>
         <div class="dept-body">
           <div class="dept-member" onclick="openModal('Патинко Володимир Іванович','Завідувач складом','','','')"><span class="dept-member-icon">⭐</span><div><div class="dept-member-name">Патинко В.І.</div><div class="dept-member-role">Завідувач складом</div></div></div>
-          <div class="dept-member" onclick="openModal('Ільчишин Аліна Михайлівна','Робітник складу','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Ільчишин А.М.</div><div class="dept-member-role">Робітник складу</div></div></div>
           <div class="dept-member" onclick="openModal('Павлюк Володимир Тарасович','Пакувальник','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Павлюк В.Т.</div><div class="dept-member-role">Пакувальник</div></div></div>
+          <div class="dept-member" onclick="openModal('Ільчишин Аліна Михайлівна','Працівник складу','','','')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Ільчишин А.М.</div><div class="dept-member-role">Працівник складу</div></div></div>
           <div class="dept-member" onclick="openModal('Яремко Анастасія Володимирівна','Логіст','','','','Відправка посилок: створення ТТН в 1С або кабінеті НП, контроль суми наложки і способу оплати, проклейка ТТН, переадресація, зміна даних отримувача та післяплати, повторне відправлення повернень, скасування замовлень. Міжнародні відправлення: передача даних НП, перевірка ТТН, оформлення в 1С. Специфікація повернень НП. Контроль підпису документів. Облік оплат на НП та Укрпошті.')"><span class="dept-member-icon">👤</span><div><div class="dept-member-name">Яремко А.В.</div><div class="dept-member-role">Логіст</div></div></div>
         </div>
       </div>
